@@ -9,12 +9,13 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
 
-  const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
 
   const handleFormSubmit = async (info) => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/business-data`, {
+      const res = await fetch(`${API_BASE_URL}/business-data`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(info),
@@ -34,7 +35,7 @@ function App() {
     setRegenerating(true);
     try {
       const res = await fetch(
-        `${API_BASE}/regenerate-headline?name=${formInfo.name}&location=${formInfo.location}`
+        `${API_BASE_URL}/regenerate-headline?name=${formInfo.name}&location=${formInfo.location}`
       );
       const data = await res.json();
       setBusinessData((prev) => ({ ...prev, headline: data.headline }));
